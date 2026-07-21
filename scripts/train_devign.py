@@ -64,6 +64,7 @@ def main():
     ap.add_argument("--epochs", type=int, default=5)
     ap.add_argument("--bs", type=int, default=8)
     ap.add_argument("--lr", type=float, default=2e-5)
+    ap.add_argument("--model", default="microsoft/codebert-base")
     a = ap.parse_args()
     set_seed(a.seed)
     dev = "cuda"
@@ -79,9 +80,9 @@ def main():
              for p in ("train", "valid", "test")}
     print({k: len(v) for k, v in parts.items()})
 
-    tok = AutoTokenizer.from_pretrained("microsoft/codebert-base")
+    tok = AutoTokenizer.from_pretrained(a.model)
     model = AutoModelForSequenceClassification.from_pretrained(
-        "microsoft/codebert-base", num_labels=2).to(dev)
+        a.model, num_labels=2).to(dev)
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=0.01)
     tl = DataLoader(DS(parts["train"], tok), batch_size=a.bs, shuffle=True,
                     collate_fn=collate, num_workers=2)
