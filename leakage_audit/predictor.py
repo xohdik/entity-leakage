@@ -1,4 +1,4 @@
-"""Theorem 2: inflation prediction.
+"""Proposition 2: inflation prediction.
 
 Mixture model:
     M_observed = rho * M_mem + (1 - rho) * M_gen

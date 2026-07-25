@@ -1,6 +1,6 @@
 """Contamination metrics.
 
-Theorem 1 (expected contamination under example-level random split).
+Proposition 1 (expected contamination under example-level random split).
 For a leakage cluster of size k and i.i.d. Bernoulli(t) assignment to
 test, a test example is *contaminated* iff >=1 of its k-1 siblings is in
 train. P(contaminated | in test) = 1 - t^(k-1).

@@ -38,7 +38,7 @@ Report both; strict ≥ direct always. (BigCloneBench shows why the
 distinction matters: within-split hub density makes strict clusters
 enormous, but the published split is disjoint under both notions.)
 
-## 3.3 Theorem 1 — expected contamination under example-level splitting
+## 3.3 Proposition 1 — expected contamination under example-level splitting
 
 Random split, test fraction t, cluster sizes {k_i}. Under Bernoulli(t)
 assignment (approximation of the hypergeometric split, error O(k/N)):
@@ -55,7 +55,7 @@ External validation: CodeNet-like regime (k∈[3,6], t=0.2) predicts
 ρ≈0.991; the EMSE paper measured 97.3–98.4% (Python) under the flawed
 pair-level protocol.
 
-## 3.4 Theorem 2 — inflation as a mixture
+## 3.4 Proposition 2 — inflation as a mixture
 
 M_obs = ρ·M_mem + (1−ρ)·M_gen  ⟹  Δ = M_obs − M_gen = ρ·(M_mem − M_gen)
 
@@ -87,11 +87,11 @@ M_obs = ρ·M_mem + (1−ρ)·M_gen  ⟹  Δ = M_obs − M_gen = ρ·(M_mem − 
 
 ## Open items to settle before writing
 
-- [ ] Exact hypergeometric version of Theorem 1 (finite-N correction)
+- [ ] Exact hypergeometric version of Proposition 1 (finite-N correction)
       for the appendix.
 - [ ] Whether "direct" contamination needs asymmetric roles (memorizing
       the shared correct artifact predicts the label only when the
       artifact's role determines the label — formalize role-aware
       sharing for pairwise tasks).
-- [ ] k-fold CV version of Theorem 1 (t = 1/K per fold; average over
+- [ ] k-fold CV version of Proposition 1 (t = 1/K per fold; average over
       folds is identical by symmetry — one-line remark).
