@@ -5,8 +5,5 @@ runs/
 *.csv
 *.jsonl
 scripts/rank_*
-scripts/train_rank.py
-scripts/queue_rank.sh
-scripts/export_rank_splits.py
 scripts/rank_stability.py
 scripts/rank_jobs.txt
