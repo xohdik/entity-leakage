@@ -20,13 +20,13 @@ leakage_audit/
   adapters/       bigclonebench (CodeXGLUE format), generic_csv
 scripts/
   validate_theory_synthetic.py   Monte Carlo agreement with the closed form (no data needed)
-  feasibility_check.py           per-benchmark rho + cluster statistics (Table 5)
+  feasibility_check.py           per-benchmark rho + cluster statistics (Tables 5-6)
   convert_*.py                   corpus converters (Devign, D2A, SStuBs, Tufano, Quatrain)
   prep_bcb.py                    BigCloneBench 30K pool + both split labelings (Sec. 5.6)
   make_devign_splits.py          Devign published + entity-clustered splits
   decompose_patch.py             exposure/exploitability/stratum-bias decomposition (Sec. 7.1)
-  confound_checks.py             bootstrap CIs, composition-matched Delta (Sec. 10.1)
-  dose_response.py               multi-seed dose-response with per-bin Wilson CIs (Table 13)
+  confound_checks.py             bootstrap CIs, composition-matched Delta (Sec. 11.1)
+  dose_response.py               multi-seed dose-response with per-bin Wilson CIs (Table 15)
 splits/
   corrected entity-level split files for every audited benchmark (see below)
 ```
@@ -82,12 +82,12 @@ contamination) via `leakage_audit.metrics.measured_contamination`.
 
 | Paper artifact | Command |
 | --- | --- |
-| Table 5 (exposure audit) | `python scripts/feasibility_check.py <benchmark> <path>` per corpus |
-| Tables 6-9 (protocol comparisons) | training scripts under `scripts/` with the split files in `splits/` |
+| Tables 5-6 (cluster structure, exposure audit) | `python scripts/feasibility_check.py <benchmark> <path>` per corpus |
+| Tables 7-9 (protocol comparisons) | training scripts under `scripts/` with the split files in `splits/` |
 | Section 7.1 decomposition | `python scripts/decompose_patch.py --contam <map>` |
-| Section 10.1 bootstrap + composition matching | `python scripts/confound_checks.py patch\|devign ...` |
-| Table 13 (dose-response, all seeds) | `python scripts/dose_response.py --measure jaccard` |
-| Appendix A (Monte Carlo) | `python scripts/validate_theory_synthetic.py` |
+| Section 11.1 bootstrap + composition matching | `python scripts/confound_checks.py patch\|devign ...` |
+| Table 15 (dose-response, all seeds) | `python scripts/dose_response.py --measure jaccard` |
+| Section 3.6 (Monte Carlo validation) | `python scripts/validate_theory_synthetic.py` |
 
 Per-seed prediction files for every trained run are released with the
 artifact so that all stratified quantities are recomputable without GPUs.
