@@ -1,22 +1,3 @@
-#!/usr/bin/env python3
-"""Entity-composition strata for the placebo contrast, both tasks, from
-EXISTING preds - no retraining.
-
-The protocol-independent partition: an example belongs to the multi-entity
-stratum iff its entity (Devign: fixing commit; patch: bug) has >= 2 examples
-corpus-wide. Well-defined on every test example of every protocol - unlike
-cross-protocol contamination-map intersections, which are only defined on
-the incidental overlap.
-
-Prints, per protocol per stratum: n, per-seed accuracies, mean, Wilson 95%
-over distinct examples, and the multi-vs-singleton gap per regime. The
-placebo question: does the gap present under leaky training collapse under
-safe training?
-
-Usage (from runs/):
-  python entity_strata.py devign --leaky 'pub_w_s*' --safe 'clu_w_s*'
-  python entity_strata.py patch  --leaky 'qt_rand_w_s*' --safe 'qt_clu_w_s*'
-"""
 import argparse, csv, glob, json, os, sys, collections
 import numpy as np
 
@@ -102,8 +83,6 @@ def main():
     print(f'corpus: {len(esize)} examples, singleton share {np.mean(sizes==1):.3f}')
     gl = report(f'{a.task} LEAKY ({a.leaky})', runs(a.leaky), esize)
     gs = report(f'{a.task} SAFE  ({a.safe})', runs(a.safe), esize)
-    print(f'\nPLACEBO VERDICT: leaky-regime gap {gl:+.4f} vs safe-regime gap {gs:+.4f}')
-    print('(the placebo holds if the safe-regime gap is near zero / much smaller)')
-
+    
 if __name__ == '__main__':
     main()

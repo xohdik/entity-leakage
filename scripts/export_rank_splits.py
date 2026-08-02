@@ -1,24 +1,3 @@
-#!/usr/bin/env python3
-"""Bridge paper-1's csv+split-map data format to paper-2's train_rank.py
-expected format (separate train/test JSONL per protocol cell).
-
-Paper 1 stores each corpus as ONE file (csv or json) plus a separate
-split-assignment map (id -> "train"/"valid"/"test"). train_rank.py expects
-pre-split train_*.jsonl / test_*.jsonl per cell. This script does that
-conversion for the four cells queue_rank.sh needs, auto-detecting field
-names the same defensive way the rest of this codebase does, so a schema
-mismatch prints a diagnostic instead of failing silently.
-
-Validation is merged into training (matches Section 4's stated convention
-in paper 1, and train_rank.py has no separate validation/early-stopping
-path to consume it otherwise -- confirmed by reading its training loop).
-
-Usage (from scripts/):
-  python export_rank_splits.py
-Writes:
-  ../data/devign/{train,test}_pub.jsonl   ../data/devign/{train,test}_clu.jsonl
-  ../data/patches/{train,test}_rand.jsonl ../data/patches/{train,test}_clu.jsonl
-"""
 import csv, json, os, sys
 
 def pick(d, keys):
@@ -156,8 +135,6 @@ def export_cell(rows_path, split_path, id_key_hint, out_prefix, out_dir):
 def main():
     devign_dir = "../data/devign"
     patches_dir = "../data/patches"
-
-    print("=== Devign (via HF dataset, matching train_devign.py exactly) ===")
     export_devign_cell(f"{devign_dir}/split_published.json", "pub", devign_dir)
     export_devign_cell(f"{devign_dir}/split_cluster.json", "clu", devign_dir)
 
@@ -166,8 +143,6 @@ def main():
                "ex_id", "rand", patches_dir)
     export_cell(f"{patches_dir}/quatrain_text.json", f"{patches_dir}/qt_split_cluster.json",
                "ex_id", "clu", patches_dir)
-
-    print("\ndone. Point queue_rank.sh's CELLS at these paths (already the default names).")
 
 if __name__ == "__main__":
     main()

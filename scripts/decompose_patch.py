@@ -162,9 +162,6 @@ def main():
         print(f'Delta_meas = Mobs - Msafe   = {mo - ms:+.4f}')
         print(f'per-seed Mobs: {[f"{v:.3f}" for v in Mobs]}   per-seed Msafe: {[f"{v:.3f}" for v in Msafe]}\n')
 
-    print(">> Sanity check: compare Mobs above against the paper's tables for this seed set")
-    print(">> (Table 6 for qt_rand_w_s*, Table 9 for ux_qt_rand_s*, Table 7 for pub_w_s*).")
-    print(">> If it does not match, rerun this command with --true-first added.")
 
 if __name__ == '__main__':
     main()

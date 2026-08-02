@@ -1,18 +1,3 @@
-#!/usr/bin/env python3
-"""Multi-seed dose-response for patch assessment, reimplemented to spec with a
-verification gate: it must reproduce the published seed-42 bins (first bin
-n=213, acc 0.742) under one of the candidate similarity measures before the
-multi-seed numbers are trusted.
-
-Similarity: max over same-bug TRAINING patches of measure(test_tokens, train_tokens),
-tokens = whitespace split of the 'patch' field. Split fixed by qt_split_random.json
-(valid folded into train). Clean test examples (no same-bug training sibling)
-reported separately, not binned.
-
-Usage (from runs/):
-  python dose_response.py --measure all          # verification pass
-  python dose_response.py --measure jaccard      # once locked, final table
-"""
 import argparse, glob, json, os, sys
 import numpy as np
 
@@ -92,8 +77,6 @@ def main():
             if vacc is not None: line += f'  {vacc:10.3f}'
             line += f'  {np.mean(accs):8.3f} +- {np.std(accs):.3f}       [{c-h:.3f}, {c+h:.3f}]'
             print(line)
-        print('>> VERIFY: does one measure reproduce the published Table-13 seed-42 column')
-        print('>> (first bin n=213, acc 0.742)? If yes, lock it; if no measure does, STOP.')
-
+        
 if __name__ == '__main__':
     main()

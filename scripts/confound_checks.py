@@ -1,24 +1,3 @@
-#!/usr/bin/env python3
-"""Confound checks the review demanded - all from EXISTING run artifacts.
-
-(i)   Bootstrap 95% CIs on F1/accuracy for both patch protocols and on Delta.
-(ii)  Composition-matched Delta: post-stratified (exact reweighting) AND
-      subsample-bootstrap versions.
-(iii) Multi-seed dose-response with per-bin Wilson CIs.
-(iv)  Devign bootstrap CI on Delta (accuracy).
-
-Needs:
-  --strata  json/csv mapping example_id -> stratum for the patch corpus,
-            where stratum is 'singleton'/'hub' (or bug_id, in which case pass
-            --bug-sizes to derive it, singleton = bug with 1 example).
-  --sim     (dose-response only) json/csv mapping example_id -> max within-bug
-            training similarity J, the same values behind Table 13/seed-42.
-
-Usage (from runs/):
-  python confound_checks.py patch --leaky 'qt_rand_w_s*' --safe 'qt_clu_w_s*' --strata ../data/patches/strata.json
-  python confound_checks.py dose  --leaky 'qt_rand_w_s*' --sim ../data/patches/test_max_sim.json
-  python confound_checks.py devign --leaky 'pub_w_s*' --safe 'clu_w_s*'
-"""
 import argparse, csv, glob, json, os, sys
 import numpy as np
 
